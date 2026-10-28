@@ -306,6 +306,7 @@ img.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-in
 .cat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(1.25rem,2.5vw,2rem);align-items:start}
 @media (max-width:640px){.cat-grid{grid-template-columns:1fr}.cat-head{grid-template-columns:1fr}.cat-head p{grid-column:1}}
 .cat-grid .pimg{aspect-ratio:4/3}
+@media (min-width:900px){.cat-grid.three{grid-template-columns:repeat(3,1fr)}}
 .feature{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
 .feature .pimg{aspect-ratio:4/3}
 .f-desc{font-size:1.12rem;line-height:1.7;color:var(--ink)}
@@ -715,20 +716,20 @@ dialog::backdrop{background:rgba(18,30,23,.5);backdrop-filter:blur(3px)}
    ============================================================== */
 const CONTACT_EMAIL = "sharon.collopy@hotmail.com";
 const CUR = "€";
-const CAT = {reflexology:"Reflexology Treatments", massage:"Massage Treatments", facials:"Restorative Facials", reiki:"Reiki", coaching:"Health Coaching & Mindfulness", gifts:"Gift", credits:"Session credits"};
+const CAT = {reflexology:"Reflexology Treatments", massage:"Massage Treatments", facials:"Restorative Facials", reiki:"Reiki", coaching:"Health & Wellness Coaching", gifts:"Gift", credits:"Session credits"};
 
 /* The five treatment categories. "intro" is the descriptive paragraph shown under each heading. */
 const CATEGORIES = [
  {id:"reflexology", name:"Reflexology Treatments", items:["foot-reflexology","facial-reflexology"],
   intro:"Reflexology uses gentle, focused pressure on reflex points to encourage deep relaxation and support your body’s natural balance. [Your description to come.]"},
- {id:"massage", name:"Massage Treatments", items:["restorative-reset","lymphatic"],
+ {id:"massage", name:"Massage Treatments", items:["restorative-reset","grounding-flow","lymphatic"],
   intro:"Hands-on treatments to release tension, calm your nervous system and help your body feel lighter. [Your description to come.]"},
  {id:"facials", name:"Restorative Facials", items:["facials"],
   intro:"Nourishing, hands-on facials that restore your skin and quieten your mind. Each facial is tailored to your skin and how you’re feeling on the day. [Your description to come.]"},
  {id:"reiki", name:"Reiki", items:["reiki"],
-  intro:"A quiet, hands-on energy therapy that helps mind and body settle. Reiki is gentle and non-intrusive, and supports your body’s own ability to restore balance. [Your description to come.]"},
- {id:"coaching", name:"Health Coaching & Mindfulness", items:["coaching"],
-  intro:"Practical, one-to-one support to build healthier habits, manage stress and feel more like yourself, combining health coaching with simple mindfulness practices you can use every day. [Your description to come.]"}
+  intro:"Reiki is a gentle, holistic energy practice that promotes deep relaxation, inner balance, and a sense of wellbeing. Through light touch or hands held just above the body, Reiki offers a peaceful space to release tension, reconnect with yourself, and nurture harmony between mind, body, and spirit."},
+ {id:"coaching", name:"Health & Wellness Coaching", items:["coaching"],
+  intro:"Feel healthier, more energised, and more balanced with personalised health and wellness coaching. Includes a bespoke wellness plan tailored to your individual goals, with practical guidance on stress management, sleep, and self-care. Your wellbeing, your way."}
 ];
 
 const ITEMS = [
@@ -745,16 +746,22 @@ const ITEMS = [
   benefits:["Deep relaxation","Eases facial and jaw tension","Leaves you feeling refreshed"],
   options:[{label:"Facial reflexology",dur:"60 min",price:65}]},
  {id:"restorative-reset", cats:["massage"], name:"Restorative Reset", aura:["#9DBB97","#E8DDBF","#D5E3C6","#EDEEE2"],
-  line:"A nurturing massage designed to release tension and help body and mind reset.",
+  line:"Back, neck and shoulder massage, scalp massage and a gentle facial massage, with a bespoke aromatic oil blend.",
   goodFor:"Stress, muscle tension, and feeling depleted or overwhelmed.",
-  about:"A full-body treatment tailored to how you’re feeling on the day, helping you let go of tension and come back to yourself. [Your description to come.]",
-  benefits:["Releases muscle tension","Calms the nervous system","A lasting sense of ease"],
-  options:[{label:"Restorative Reset",dur:"60 min",price:70},{label:"Restorative Reset",dur:"90 min",price:90}]},
+  about:"A deeply restorative treatment designed to release tension, calm the nervous system, and encourage a renewed sense of balance. Beginning with a soothing back, neck, and shoulder massage, flowing techniques and targeted pressure help ease muscular tightness and melt away everyday stress. The treatment continues with a relaxing scalp massage, followed by a gentle facial massage to release facial tension, awaken circulation, and leave you feeling refreshed and restored. Inclusive of a bespoke aromatic oil blend, carefully selected to suit your individual needs and support your desired experience.",
+  benefits:["Releases muscle tension","Calms the nervous system","Leaves you feeling refreshed and restored"],
+  options:[{label:"Restorative Reset",dur:"60 min",price:80},{label:"Restorative Reset",dur:"90 min",price:100}]},
+ {id:"grounding-flow", cats:["massage","reflexology"], name:"Grounding Flow", aura:["#94B39A","#E3D6B4","#CADCC0","#ECEDE0"],
+  line:"Foot reflexology, backline, neck, shoulders, scalp and facial reflexology, with a bespoke aromatic oil blend.",
+  goodFor:"Stress, muscle tension, poor circulation and feeling depleted.",
+  about:"A deeply restorative treatment designed to release tension, calm the nervous system, and encourage a renewed sense of balance. Beginning with soothing foot reflexology, the treatment flows into the backline of the body, including the backs of the legs, back, neck, and shoulders. Flowing techniques and targeted pressure help ease muscular tightness, support circulation, and melt away everyday stress. The treatment continues with a relaxing scalp massage, finishing with gentle facial reflexology to release facial tension, awaken circulation, and leave you feeling refreshed and restored. Inclusive of a bespoke aromatic oil blend, carefully selected to suit your individual needs and support your desired experience.",
+  benefits:["Releases muscle tension","Supports circulation","Calms the nervous system"],
+  options:[{label:"Grounding Flow",dur:"120 min",price:140}]},
  {id:"lymphatic", cats:["massage"], name:"Lymphatic Drainage Massage", aura:["#B9D3CC","#D9E6C8","#F5F0E6","#E9F0EC"],
-  line:"Light, rhythmic massage that supports your lymphatic system and leaves you feeling lighter.",
-  goodFor:"Puffiness, fluid retention and feeling sluggish.",
-  about:"A gentle technique using slow, rhythmic strokes to encourage the natural flow of lymph through the body. Please mention any health conditions when you book. [Your description to come.]",
-  benefits:["Helps you feel lighter","Can ease puffiness and fluid retention","Deeply relaxing"],
+  line:"A gentle, rhythmic massage that supports your body’s natural lymphatic flow.",
+  goodFor:"Bloating, abdominal fullness, digestive discomfort and feeling sluggish.",
+  about:"Lymphatic drainage massage is a gentle, rhythmic technique designed to support the body’s natural lymphatic flow. Through light, soothing movements, it may help ease feelings of bloating, abdominal fullness, and digestive discomfort while encouraging circulation and relaxation. This calming treatment can support a more comfortable, balanced feeling in the body and offer a peaceful space to release tension and reconnect with yourself.",
+  benefits:["May ease bloating and digestive discomfort","Encourages circulation","Deeply relaxing"],
   options:[{label:"Lymphatic drainage massage",dur:"60 min",price:70}]},
  {id:"facials", cats:["facials"], name:"Restorative Facials", aura:["#E6D2C0","#F1E6C8","#C9DABE","#F3EEE3"],
   line:"Nourishing, hands-on facials that restore your skin and quieten your mind.",
@@ -762,15 +769,15 @@ const ITEMS = [
   about:"Each facial is tailored to your skin and how you’re feeling on the day. [Your description to come.]",
   benefits:[], options:[{label:"Restorative facial",dur:"60 min",price:70}]},
  {id:"reiki", cats:["reiki"], name:"Reiki", aura:["#B7CFC4","#E6E9D8","#F3EEDF","#EAEFEA"],
-  line:"A quiet, hands-on therapy that helps mind and body settle.",
+  line:"A gentle, holistic energy practice for deep relaxation, inner balance and wellbeing.",
   goodFor:"Stress, anxiety, low energy and poor sleep.",
-  about:"A gentle, non-intrusive complementary therapy that supports your body’s own ability to restore balance. [Your description to come.]",
-  benefits:[], options:[{label:"Reiki session",dur:"60 min",price:55}]},
- {id:"coaching", cats:["coaching"], name:"Health Coaching & Mindfulness", aura:["#8FB09A","#CFE0C3","#EFE8D6","#E6ECE4"],
-  line:"Practical support to build healthier habits, calm your mind and feel more like yourself.",
+  about:"Reiki is a gentle, holistic energy practice that promotes deep relaxation, inner balance, and a sense of wellbeing. Through light touch or hands held just above the body, Reiki offers a peaceful space to release tension, reconnect with yourself, and nurture harmony between mind, body, and spirit.",
+  benefits:[], options:[{label:"Reiki session",dur:"60 min",price:70}]},
+ {id:"coaching", cats:["coaching"], name:"Health & Wellness Coaching", aura:["#8FB09A","#CFE0C3","#EFE8D6","#E6ECE4"],
+  line:"Your wellbeing, your way.",
   goodFor:"Stress, energy, sleep and building habits that last.",
-  about:"One-to-one sessions combining health coaching with simple mindfulness practices, focused on your own goals. [Your description to come.]",
-  benefits:[], options:[{label:"One-to-one session",dur:"60 min",price:60}]},
+  about:"Feel healthier, more energised, and more balanced with personalised health and wellness coaching. Includes a bespoke wellness plan tailored to your individual goals, with practical guidance on stress management, sleep, and self-care. Your wellbeing, your way.",
+  benefits:["A bespoke wellness plan","Guidance on stress management, sleep and self-care"], options:[{label:"Coaching session with wellness plan",dur:"120 min",price:120}]},
  {id:"voucher", cats:["gifts"], name:"Gift voucher", aura:["#A8C3A0","#F1E2B8","#E8DDBF","#EFEBDD"], hidden:true,
   line:"A gift of rest for someone you love. Use for any treatment.",
   goodFor:"Birthdays, new mums, thank-yous.", about:"Emailed to you to print or forward. Valid for [12 months].", benefits:[],
@@ -783,7 +790,7 @@ const ITEMS = [
    treatment counts as one "standard session" (0 = first option).
    ============================================================== */
 const CREDIT_PACKS = [{n:3, off:.05},{n:6, off:.10, popular:true},{n:10, off:.15}];
-const CREDIT_BASE = {"foot-reflexology":1,"facial-reflexology":0,"restorative-reset":0,"lymphatic":0,"facials":0,"reiki":0,"coaching":0};
+const CREDIT_BASE = {"foot-reflexology":1,"facial-reflexology":0,"restorative-reset":0,"grounding-flow":0,"lymphatic":0,"facials":0,"reiki":0,"coaching":0};
 const round5 = n => Math.round(n/5)*5;
 Object.entries(CREDIT_BASE).forEach(([id, oi]) => {
   const t = ITEMS.find(i => i.id === id), base = t.options[oi];
@@ -818,7 +825,7 @@ const PHOTOS = {
 };
 const PHOTO_NOTES = {
   "foot-reflexology":"hands working gently on feet", "facial-reflexology":"gentle hands on the face and neck",
-  "restorative-reset":"a slow, nurturing back massage", "lymphatic":"light, rhythmic massage strokes",
+  "restorative-reset":"a slow, nurturing back massage", "grounding-flow":"gentle hands on the feet, then the back", "lymphatic":"light, rhythmic massage strokes",
   "facials":"a calm facial with natural skincare", "reiki":"hands-on Reiki, eyes closed",
   "coaching":"a quiet moment of mindfulness"
 };
@@ -837,8 +844,8 @@ function applyPhotos(root){
 const NEEDS = [
  {t:"Stress, anxiety or poor sleep", r:["foot-reflexology","reiki","restorative-reset"]},
  {t:"Hormones, cycle or menopause", r:["foot-reflexology","coaching","facial-reflexology"]},
- {t:"Tension, aches and feeling depleted", r:["restorative-reset","foot-reflexology","lymphatic"]},
- {t:"Puffiness or feeling sluggish", r:["lymphatic","restorative-reset","foot-reflexology"]},
+ {t:"Tension, aches and feeling depleted", r:["restorative-reset","grounding-flow","foot-reflexology"]},
+ {t:"Bloating or feeling sluggish", r:["lymphatic","grounding-flow","foot-reflexology"]},
  {t:"Tired skin and a moment to myself", r:["facials","facial-reflexology","reiki"]},
  {t:"Healthier habits and a calmer mind", r:["coaching","reiki","foot-reflexology"]},
  {t:"It’s a gift", r:["voucher"]}
@@ -928,7 +935,7 @@ $("#cats").innerHTML = CATEGORIES.map((c,i) => {
       <h3 id="cat-${c.id}-h">${esc(c.name)}</h3>
       ${isSingle ? "" : `<p>${esc(c.intro)}</p>`}
     </div>
-    ${isSingle ? single(c, items[0], i % 2 === 1) : `<div class="cat-grid">${items.map(card).join("")}</div>`}
+    ${isSingle ? single(c, items[0], i % 2 === 1) : `<div class="cat-grid${items.length === 3 ? " three" : ""}">${items.map(card).join("")}</div>`}
   </section>`;
 }).join("");
 document.querySelectorAll("#catnav a").forEach(a => a.addEventListener("click", e => { e.preventDefault(); document.querySelector(a.getAttribute("href")).scrollIntoView(); }));
